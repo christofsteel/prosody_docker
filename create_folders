@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+chown -R prosody:prosody /var/lib/prosody
+
 if [ ! -d /var/lib/prosody/log ]; then
 	mkdir -p /var/lib/prosody/log
 fi
