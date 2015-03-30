@@ -1,0 +1,38 @@
+#!/bin/bash
+
+if [ ! -e "/etc/start.d/$2" ]; then
+	echo "$2 not found"
+	exit 1
+fi
+. /etc/start.d/$2
+
+case "$1" in
+init)
+if [ $(type -t init_service) == 'function' ]; then
+	init_service
+else
+	echo "Could not initialize $2"
+fi
+;;
+start)
+if [ $(type -t init_service) == 'function' ]; then
+	start_service
+else
+	echo "Could not start $2"
+fi
+;;
+stop)
+if [ $(type -t init_service) == 'function' ]; then
+	stop_service
+else
+	echo "Could not stop $2"
+fi
+;;
+restart)
+if [ $(type -t init_service) == 'function' ]; then
+	restart_service
+else
+	echo "Could not restart $2"
+fi
+;;
+esac

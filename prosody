@@ -1,0 +1,17 @@
+function init_service {
+	copy_modules
+	copy_certs
+	create_config_prosody
+	chown prosody:prosody /var/lib/prosody
+
+}
+function start_service {
+	prosodyctl start
+}
+function stop_service {
+	prosodyctl stop
+}
+function restart_service {
+	stop_service
+	start_service
+}
