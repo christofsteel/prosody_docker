@@ -13,16 +13,20 @@ RUN apt-get install --no-install-recommends -y lua-sec-prosody
 RUN apt-get install --no-install-recommends -y lua-bitop
 RUN apt-get install --no-install-recommends -y git
 
+RUN apt-get install --no-install-recommends -y ca-certificates
+
+WORKDIR /tmp
+
 RUN git clone https://github.com/christofsteel/prosody_docker
 
 RUN mkdir /etc/start.d/
-RUN cp prosody /etc/start.d/
+RUN cp /tmp/prosody_docker/prosody /etc/start.d/
 RUN chmod a+x /etc/start.d/prosody
-RUN cp copy_certs /usr/bin/
-RUN chmod a+x /usr/bin/copy_certs
-RUN cp copy_modules /usr/bin/
+RUN cp /tmp/prosody_docker/create_folders /usr/bin/
+RUN chmod a+x /usr/bin/create_folders
+RUN cp /tmp/prosody_docker/copy_modules /usr/bin/
 RUN chmod a+x /usr/bin/copy_modules
-RUN cp create_config_prosody /usr/bin/
+RUN cp /tmp/prosody_docker/create_config_prosody /usr/bin/
 RUN chmod a+x /usr/bin/create_config_prosody
 
 WORKDIR /usr/share
@@ -41,3 +45,6 @@ ENTRYPOINT ["/bin/init.sh"]
 
 RUN apt-get --no-install-recommends -y install nano
 RUN apt-get --no-install-recommends -y install vim
+
+RUN ln -s /var/lib/prosody/log /var/log/prosody
+RUN ln -s /var/lib/prosody/certs /etc/prosody/certs

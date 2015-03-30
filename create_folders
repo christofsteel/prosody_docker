@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+if [ ! -d /var/lib/prosody/log ]; then
+	mkdir -p /var/lib/prosody/log
+fi
