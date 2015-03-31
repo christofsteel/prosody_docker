@@ -172,6 +172,7 @@ log = {
 	-- "*console"; -- Log to the console, useful for debugging with daemonize=false
 }
 
+component_interface = "0.0.0.0"
 ----------- Virtual hosts -----------
 -- You need to add a VirtualHost entry for each domain you wish Prosody to serve.
 -- Settings under each VirtualHost entry apply *only* to that host.
@@ -203,7 +204,6 @@ Component "proxy.$DOMAIN" "proxy65"
 -- see: http://prosody.im/doc/components#adding_an_external_component
 --
 
-component_interface = "0.0.0.0"
 
 EOF
 for component in $COMPONENTS; do
