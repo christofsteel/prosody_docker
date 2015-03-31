@@ -4,6 +4,10 @@ for module in $MODULES; do
 	echo "Using module $module"
 done
 
+for component in $COMPONENTS; do
+	echo "using component $component"
+done
+
 cat <<EOF > /etc/prosody/prosody.cfg.lua
 -- Prosody Example Configuration File
 --
@@ -75,6 +79,7 @@ modules_enabled = {
 
 	-- Other specific functionality
 		"posix"; -- POSIX functionality, sends server to background, enables syslog, etc.
+		"proxy65";
 		--"groups"; -- Shared roster support
 		--"announce"; -- Send announcement to all online users
 		--"welcome"; -- Welcome users who register accounts
@@ -197,14 +202,7 @@ Component "proxy.$DOMAIN" "proxy65"
 -- transports to other networks like ICQ, MSN and Yahoo. For more info
 -- see: http://prosody.im/doc/components#adding_an_external_component
 --
-Component "icq.$DOMAIN"
-	component_secret = "secret"
-Component "facebook.$DOMAIN"
-	component_secret = "secret"
-Component "gtalk.$DOMAIN"
-	component_secret = "secret"
-Component "xmpp.$DOMAIN"
-	component_secret = "secret"
-Component "irc.$DOMAIN"
-	component_secret = "secret"
 EOF
+for component in $COMPONENTS; do
+echo "Component \"$component.$DOMAIN\"" >> /etc/prosody/prosody.cfg.lua
+echo "	component_secret = \"secret\"" >> /etc/prosody/prosody.cfg.lua

@@ -46,5 +46,7 @@ ENTRYPOINT ["/bin/init.sh"]
 RUN apt-get --no-install-recommends -y install nano
 RUN apt-get --no-install-recommends -y install vim
 
+RUN rm -rf /var/log/prosody
 RUN ln -s /var/lib/prosody/log /var/log/prosody
-RUN ln -s /var/lib/prosody/certs /etc/prosody/certs
+RUN rm -rf /etc/prosody/certs
+RUN ln -s /var/lib/prosody/certs /etc/prosody
