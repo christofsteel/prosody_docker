@@ -204,5 +204,6 @@ Component "proxy.$DOMAIN" "proxy65"
 --
 EOF
 for component in $COMPONENTS; do
-echo "Component \"$component.$DOMAIN\"" >> /etc/prosody/prosody.cfg.lua
-echo "	component_secret = \"secret\"" >> /etc/prosody/prosody.cfg.lua
+	echo "Component \"$component.$DOMAIN\"" >> /etc/prosody/prosody.cfg.lua
+	echo "	component_secret = \"secret\"" >> /etc/prosody/prosody.cfg.lua
+done
