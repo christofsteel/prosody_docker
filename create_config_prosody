@@ -202,6 +202,9 @@ Component "proxy.$DOMAIN" "proxy65"
 -- transports to other networks like ICQ, MSN and Yahoo. For more info
 -- see: http://prosody.im/doc/components#adding_an_external_component
 --
+
+component_interface = "0.0.0.0"
+
 EOF
 for component in $COMPONENTS; do
 	echo "Component \"$component.$DOMAIN\"" >> /etc/prosody/prosody.cfg.lua
