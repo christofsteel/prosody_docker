@@ -15,6 +15,31 @@ RUN apt-get install --no-install-recommends -y git
 
 RUN apt-get install --no-install-recommends -y ca-certificates
 
+RUN apt-get install --no-install-recommends -y nano
+RUN apt-get install --no-install-recommends -y vim
+
+WORKDIR /usr/share
+RUN hg clone https://code.google.com/p/prosody-modules/
+WORKDIR /usr/lib/prosody
+
+EXPOSE 5222
+EXPOSE 5269
+EXPOSE 5347
+EXPOSE 5280
+EXPOSE 5281
+
+ADD init.sh /bin/
+ADD startd /bin/
+RUN chmod a+x /bin/init.sh
+RUN chmod a+x /bin/startd
+
+ENTRYPOINT ["/bin/init.sh"]
+
+RUN rm -rf /var/log/prosody
+RUN ln -s /var/lib/prosody/log /var/log/prosody
+RUN rm -rf /etc/prosody/certs
+RUN ln -s /var/lib/prosody/certs /etc/prosody
+
 WORKDIR /tmp
 
 RUN git clone https://github.com/christofsteel/prosody_docker
@@ -28,25 +53,3 @@ RUN cp /tmp/prosody_docker/copy_modules /usr/bin/
 RUN chmod a+x /usr/bin/copy_modules
 RUN cp /tmp/prosody_docker/create_config_prosody /usr/bin/
 RUN chmod a+x /usr/bin/create_config_prosody
-
-WORKDIR /usr/share
-RUN hg clone https://code.google.com/p/prosody-modules/
-WORKDIR /usr/lib/prosody
-
-EXPOSE 5222
-EXPOSE 5269
-
-ADD init.sh /bin/
-ADD startd /bin/
-RUN chmod a+x /bin/init.sh
-RUN chmod a+x /bin/startd
-
-ENTRYPOINT ["/bin/init.sh"]
-
-RUN apt-get --no-install-recommends -y install nano
-RUN apt-get --no-install-recommends -y install vim
-
-RUN rm -rf /var/log/prosody
-RUN ln -s /var/lib/prosody/log /var/log/prosody
-RUN rm -rf /etc/prosody/certs
-RUN ln -s /var/lib/prosody/certs /etc/prosody

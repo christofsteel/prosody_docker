@@ -80,6 +80,7 @@ modules_enabled = {
 	-- Other specific functionality
 		"posix"; -- POSIX functionality, sends server to background, enables syslog, etc.
 		"proxy65";
+		"websocket";
 		--"groups"; -- Shared roster support
 		--"announce"; -- Send announcement to all online users
 		--"welcome"; -- Welcome users who register accounts
@@ -103,6 +104,8 @@ modules_disabled = {
 	-- "c2s"; -- Handle client connections
 	-- "s2s"; -- Handle server-to-server connections
 };
+
+cross_domain_websocket = true;
 
 -- Disable account creation by default, for security
 -- For more information see http://prosody.im/doc/creating_accounts
